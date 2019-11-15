@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,9 +33,9 @@ public class PassportController {
     @Reference(validation = "true", version = "${dubbo.provider.AdminService.version}")
     private AdminService adminService;
 
-    @PostMapping("/login")
     @ApiOperation(value = "手机号 + 密码登陆")
-    public CommonResult<AdminAuthenticationBO> login(AdminAuthenticationDTO adminAuthenticationDTO) {
+    @PostMapping("/login")
+    public CommonResult<AdminAuthenticationBO> login(@RequestBody AdminAuthenticationDTO adminAuthenticationDTO) {
         // 增加计数
         METRICS_LOGIN_TOTAL.increment();
         // 执行登陆

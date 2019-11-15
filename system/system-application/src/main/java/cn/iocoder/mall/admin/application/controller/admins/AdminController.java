@@ -1,6 +1,5 @@
 package cn.iocoder.mall.admin.application.controller.admins;
 
-import cn.iocoder.common.framework.constant.MallConstants;
 import cn.iocoder.common.framework.util.CollectionUtil;
 import cn.iocoder.common.framework.vo.CommonResult;
 import cn.iocoder.common.framework.vo.PageResult;
@@ -8,10 +7,10 @@ import cn.iocoder.mall.admin.api.AdminService;
 import cn.iocoder.mall.admin.api.DeptmentService;
 import cn.iocoder.mall.admin.api.ResourceService;
 import cn.iocoder.mall.admin.api.RoleService;
+import cn.iocoder.mall.admin.api.bo.admin.AdminBO;
 import cn.iocoder.mall.admin.api.bo.deptment.DeptmentBO;
 import cn.iocoder.mall.admin.api.bo.resource.ResourceBO;
 import cn.iocoder.mall.admin.api.bo.role.RoleBO;
-import cn.iocoder.mall.admin.api.bo.admin.AdminBO;
 import cn.iocoder.mall.admin.api.constant.ResourceConstants;
 import cn.iocoder.mall.admin.api.dto.admin.*;
 import cn.iocoder.mall.admin.application.convert.AdminConvert;
@@ -34,7 +33,7 @@ import java.util.stream.Collectors;
 import static cn.iocoder.common.framework.vo.CommonResult.success;
 
 @RestController
-@RequestMapping(MallConstants.ROOT_PATH_ADMIN + "/admin")
+@RequestMapping("/admins/admin")
 @Api("管理员模块")
 public class AdminController {
 
