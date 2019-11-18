@@ -229,11 +229,18 @@ public class OrderServiceImpl implements OrderService {
         CalcOrderPriceBO calcOrderPrice = calcOrderPrice(productList, orderCreateDTO);
 
         // 设置 orderItem
+        // 商品 SKU 信息的集合
         Map<Integer, ProductSkuDetailBO> productSpuBOMap = productList
-                .stream().collect(Collectors.toMap(ProductSkuDetailBO::getId, o -> o)); // 商品 SKU 信息的集合
-        Map<Integer, CalcOrderPriceBO.Item> priceItemMap = new HashMap<>(); // 商品 SKU 价格的映射
+                .stream()
+                .collect(Collectors.toMap(ProductSkuDetailBO::getId, o -> o));
+
+        // 商品 SKU 价格的映射
+        Map<Integer, CalcOrderPriceBO.Item> priceItemMap = new HashMap<>();
+
         calcOrderPrice.getItemGroups().forEach(itemGroup ->
-                itemGroup.getItems().forEach(item -> priceItemMap.put(item.getId(), item)));
+                itemGroup.getItems()
+                         .forEach(item -> priceItemMap.put(item.getId(), item))
+        );
         // 遍历 orderItemDOList 数组，将商品信息、商品价格，设置到其中
         for (OrderItemDO orderItemDO : orderItemDOList) {
             ProductSkuDetailBO productSkuDetailBO = productSpuBOMap.get(orderItemDO.getSkuId());

@@ -50,8 +50,8 @@ public class CartServiceImpl implements CartService {
     public Boolean add(Integer userId, Integer skuId, Integer quantity) {
         // 查询 SKU 是否合法
         ProductSkuBO sku = productSpuService.getProductSku(skuId);
-        if (sku == null
-                || CommonStatusEnum.DISABLE.getValue().equals(sku.getStatus())) { // sku 被禁用
+        // sku 被禁用
+        if (sku == null || CommonStatusEnum.DISABLE.getValue().equals(sku.getStatus())) {
             throw ServiceExceptionUtil.exception(OrderErrorCodeEnum.CARD_ITEM_SKU_NOT_FOUND.getCode());
         }
         // TODO 芋艿，后续基于商品是否上下架进一步完善。
@@ -77,7 +77,9 @@ public class CartServiceImpl implements CartService {
                 // 买家信息
                 .setUserId(userId)
                 // 商品信息
-                .setSpuId(sku.getSpuId()).setSkuId(sku.getId()).setQuantity(quantity);
+                .setSpuId(sku.getSpuId())
+                .setSkuId(sku.getId())
+                .setQuantity(quantity);
         item.setCreateTime(new Date());
         cartMapper.insert(item);
         // 返回成功
